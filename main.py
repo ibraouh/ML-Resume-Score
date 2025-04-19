@@ -1,10 +1,20 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
 app = FastAPI(title="Resume–Job Match Scorer")
+
+# NEEDS TO BE CHANGED TO DOMAIN IN THE FUTURE
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3001"],  # or ["*"] to allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # GET, POST, OPTIONS, etc.
+    allow_headers=["*"],  # Allow any headers
+)
 
 
 class MatchRequest(BaseModel):
@@ -23,8 +33,8 @@ def score_match(req: MatchRequest):
             status_code=400, detail="Both resume_text and keywords are required."
         )
     print(f"Received request: {req}")
-    print(f"Resume text: {req.resume_text}")
-    print(f"Keywords: {req.keywords}")
+    # print(f"Resume text: {req.resume_text}")
+    # print(f"Keywords: {req.keywords}")
 
     # 1. Prepare documents
     kw_doc = " ".join(req.keywords)
