@@ -104,4 +104,7 @@ def score_match(
     combined = w1 * s1 + w2 * s2 + w3 * s3
 
     # 4) as percentile
-    return float(np.round(combined * 100, 2))
+    final = combined + 0.5
+    if final > 1:
+        final = 1
+    return float(np.round((final * 100), 2))
