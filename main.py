@@ -22,6 +22,9 @@ def score_match(req: MatchRequest):
         raise HTTPException(
             status_code=400, detail="Both resume_text and keywords are required."
         )
+    print(f"Received request: {req}")
+    print(f"Resume text: {req.resume_text}")
+    print(f"Keywords: {req.keywords}")
 
     # 1. Prepare documents
     kw_doc = " ".join(req.keywords)
