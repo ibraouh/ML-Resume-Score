@@ -104,7 +104,15 @@ def score_match(
     combined = w1 * s1 + w2 * s2 + w3 * s3
 
     # 4) as percentile
-    final = combined + 0.5
-    if final > 1:
-        final = 1
-    return float(np.round((final * 100), 2))
+    pct = combined * 100.0
+    for threshold, delta in [
+        (70, 20),
+        (67, 12),
+        (65, 5),
+    ]:
+        if pct >= threshold:
+            print(f"Editing {pct:.2f}% to {pct + delta:.2f}%")
+            pct = pct + delta
+            break
+    pct = min(pct, 100.0)
+    return pct
