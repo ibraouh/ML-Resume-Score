@@ -12,7 +12,7 @@ app = FastAPI(title="Resume-Job Match Scorer")
 # NEEDS TO BE CHANGED TO DOMAIN IN THE FUTURE
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3001"],  # or ["*"] to allow all origins
+    allow_origins=["*"],  # or ["*"] to allow all origins
     allow_credentials=True,
     allow_methods=["*"],  # GET, POST, OPTIONS, etc.
     allow_headers=["*"],  # Allow any headers
